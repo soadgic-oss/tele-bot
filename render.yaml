@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: green-industry-forms-bot
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python setup_webhook.py && gunicorn app:app
+    envVars:
+      - key: BOT_TOKEN
+        sync: false
+      - key: PUBLIC_URL
+        sync: false
+      - key: WEBHOOK_SECRET
+        generateValue: true
