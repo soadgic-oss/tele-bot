@@ -15,5 +15,12 @@ response = requests.post(
     json={"url": f"{public_url}/telegram-webhook", "secret_token": secret, "allowed_updates": ["message"]},
     timeout=15,
 )
-response.raise_for_status()
+if not response.ok:
+    # Show Telegram's safe diagnostic, never the request URL (which includes BOT_TOKEN).
+    try:
+        description = response.json().get("description", "Unknown Telegram error")
+    except ValueError:
+        description = "Telegram returned an unreadable error response"
+    print(f"Telegram webhook setup failed: {description}")
+    sys.exit(1)
 print("Telegram webhook configured.")
