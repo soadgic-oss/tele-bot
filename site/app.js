@@ -40,7 +40,7 @@ document.querySelector('#print').addEventListener('click', () => window.print())
 function showNotice(message, isError = false) { const notice = document.querySelector('#notice'); notice.textContent = message; notice.hidden = false; notice.classList.toggle('notice-error', isError); }
 function createPdfSheet() {
   const spec = forms[type], sheet = document.createElement('section'); sheet.className = 'pdf-export'; sheet.dir = 'rtl';
-  sheet.innerHTML = `<div class="pdf-brand"><b>مركز الصناعة الخضراء</b><span>وزارة الصناعة والمعادن</span></div><div class="pdf-title">${spec.title}</div><div class="pdf-number">رقم النموذج: ${numberForCurrentForm()}</div><div class="pdf-fields"></div>`;
+  sheet.innerHTML = `<div class="pdf-brand"><img src="logo.jpg" alt="شعار مركز الصناعة الخضراء"><div><b>مركز الصناعة الخضراء</b><span>وزارة الصناعة والمعادن</span></div></div><div class="pdf-title">${spec.title}</div><div class="pdf-number">رقم النموذج: ${numberForCurrentForm()}</div><div class="pdf-fields"></div>`;
   const fields = sheet.querySelector('.pdf-fields');
   spec.fields.forEach(([name, label]) => { const row = document.createElement('div'); row.className = 'pdf-row'; const labelEl = document.createElement('b'); labelEl.textContent = label; const valueEl = document.createElement('span'); valueEl.textContent = document.querySelector(`[name="${name}"]`).value || '—'; row.append(labelEl, valueEl); fields.append(row); });
   return sheet;
